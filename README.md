@@ -15,8 +15,8 @@ You may use the example `firewatch` directory in this respository containing num
   
 3. Fill in the required parameters in `config.ini`
    * `path`- the folder that contains all of your images. Defaults to the same directory as the app if not defined.
-   * `image_format` - image file extension of your images. Defaults to ".jpg" if not defined.
-   * `wallpaper_option` - shall be either : center, tile, stretch, fit, fill, span. Defaults to "fill" if not defined.  
+   * `image_format` - image file extension of your images. Defaults to `.jpg` if not defined.
+   * `wallpaper_option` - shall be either : `center`, `tile`, `stretch`, `fit`, `fill` or `span`. Defaults to `fill`if not defined.  
   
    For example:  
 ```ini
