@@ -3,7 +3,7 @@
 Unlike most implementations, this utility allows for **fading** between wallpaper images by hooking onto the Windows API and enabling Active Desktop via `pywin32`.
 
 ## How to Use
-1. Download and extracct the zip archive containing 2 files and an example image directory into the same folder:  
+1. Download the 2 files under [releases](https://github.com/GrandTheftGelato/Py-Dynamic-Wallpaper-for-Windows-10/releases) into the same folder:  
    * `py_dynamic_wallpaper.exe`  
    * `config.ini`
   
