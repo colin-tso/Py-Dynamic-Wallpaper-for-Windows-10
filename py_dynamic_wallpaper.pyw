@@ -1,10 +1,12 @@
+# General Dependencies
 import configparser
 import datetime
 import time
 import os
+
+# Dependencies for Active Desktop
 import ctypes
 from typing import List
-
 import pythoncom
 import pywintypes
 import win32gui
@@ -19,22 +21,20 @@ pathname = config.get("GENERAL", "path", fallback = os.getcwd())
 pathname.encode("unicode_escape")
 print(pathname)
 
-# Set image format
+# Get image format
 image_format = config.get("GENERAL", "image_format", fallback = r".jpg")
 image_format.lower()
 image_format.encode("unicode_escape")
 print(image_format)
 
-# Set wallpaper option
+# Get wallpaper option
 wallpaper_option = config.get("GENERAL", "wallpaper_option", fallback = r"fill")
 wallpaper_option.lower()
 wallpaper_option.encode("unicode_escape")
 print(wallpaper_option)
-wp_options_dict = {"center": 0x0, "tile": 0x1, "stretch": 0x2, "fit": 0x3, "fill": 0x4, "span": 0x5}
+wp_options_dict = {"center": 0x0, "tile": 0x1, "stretch": 0x2, "fit": 0x3, "fill": 0x4, "span": 0x5} # https://docs.microsoft.com/en-us/windows/win32/api/shlobj_core/ns-shlobj_core-wallpaperopt
 wallpaper_option = wp_options_dict.get(wallpaper_option)
 print(wallpaper_option)
-
-#wait = input("PRESS ENTER TO CONTINUE.")
 
 # Initialise variables
 wallpaper_time = -1
@@ -107,14 +107,14 @@ while(True):
         file_list = [k for k in file_list if (image_format) in k] # Filter for only file extensions defined by 'image_format'
         file_list = [os.path.splitext(string)[0] for string in file_list] # Get file list without extension
         file_list = [k for k in file_list if k.isnumeric()] # Remove non-numeric image file names from list
-        file_list = [int(string) for string in file_list] # convert to filename to integer value  
+        file_list = [int(string) for string in file_list] # convert filename to integer value  
         file_list = [i for i in file_list if i <= now_seconds] # return only values less than current time in seconds
         closest_time = max(file_list) # return largest matching value compared to current time in seconds
 
-        if wallpaper_time != closest_time: # check if wallpaper is current 
-                wallpaper_time = closest_time
-                filename = str(max(file_list)).strip() + image_format
-                filepath = os.path.join(pathname,filename)
+        if wallpaper_time != closest_time: # check if wallpaper is current
+                wallpaper_time = closest_time # save wallpaper update time
+                filename = str(max(file_list)).strip() + image_format # generate filename with file extension per 'image_format'
+                filepath = os.path.join(pathname,filename) # generate full file path
                 # Update wallpaper
                 if __name__ == '__main__':
                         set_wallpaper(filepath)
