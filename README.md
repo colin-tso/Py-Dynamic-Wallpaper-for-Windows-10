@@ -2,7 +2,7 @@
 A python-based dynamic wallpaper utility for Windows 10
 
 # How to Use
-1. Download and extracct the zip archive containing 2 files into the same folder:  
+1. Download and extracct the zip archive containing 2 files and an example image directory into the same folder:  
    * `py_dynamic_wallpaper.exe`  
    * `config.ini`
   
