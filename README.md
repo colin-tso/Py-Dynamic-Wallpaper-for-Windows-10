@@ -44,3 +44,6 @@ Copy from:
 `C:\Users\[USERNAME]\AppData\Local\Programs\Python\Python37\Lib\site-packages\pywin32_system32`  
 to  
 `C:\Users\[USERNAME]\AppData\Local\Programs\Python\Python37\Lib\site-packages\win32`
+
+## To Do List
+- [ ] Add option to take into account local sunrise and sunset times depending on location and time of year
