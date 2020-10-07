@@ -1,5 +1,5 @@
 # Py Dynamic Wallpaper for Windows-10
-**A python-based dynamic wallpaper utility for Windows 10 that changes based on your system clock**.  
+**A python-based program for Windows 10 that dynamically changes and fades your desktop wallpaper based on the time of day.**.  
 Unlike most implementations, this utility allows for **fading** between wallpaper images by hooking onto the Windows API and enabling Active Desktop via `pywin32`.
 
 ## How to Use
