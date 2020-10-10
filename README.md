@@ -1,6 +1,9 @@
 # Py Dynamic Wallpaper for Windows-10
 **A python-based program for Windows 10 that dynamically changes and fades your desktop wallpaper based on the time of day.**  
-Unlike most implementations, this utility allows for **fading** between wallpaper images by hooking onto the Windows API and enabling Active Desktop via `pywin32`.
+Unlike most implementations, this utility allows for:
+1. **Fading** between wallpaper images by hooking onto the Windows API and enabling Active Desktop via `pywin32`
+2. **Dynamic** sunrise/sunset times based on your location and time of year
+3. Requires no internet connection
 
 ## How to Use
 1. Download the 2 files under [releases](https://github.com/GrandTheftGelato/Py-Dynamic-Wallpaper-for-Windows-10/releases) into the same folder:  
