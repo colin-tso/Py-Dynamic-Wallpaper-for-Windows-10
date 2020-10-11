@@ -16,6 +16,7 @@ Unlike most implementations, this utility allows for:
    * `image_format` - image file extension of your images. Defaults to `.jpg` if not defined.
    * `wallpaper_option` - shall be either : `center`, `tile`, `stretch`, `fit`, `fill` or `span`. Defaults to `fill`if not defined.
    * `seasonal` - shall be either `True` or `False` - setting this to true allows the program take into account actual sunrise and sunset times depending on location and time of year.  Defaults to `False` if not defined.
+   * `latitude`, `longitude` and `elevation` - the corresponding information of your location. Defaults to Melbourne, Australia if not defined.
   
    For example:  
 ```ini
