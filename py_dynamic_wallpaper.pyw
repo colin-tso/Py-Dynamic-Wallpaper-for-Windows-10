@@ -15,6 +15,7 @@ import datetime
 import configparser
 import math
 import os
+from collections import namedtuple
 
 # Suntime
 from suntime import suntime
@@ -24,7 +25,7 @@ import iad
 
 def main():
     '''Main Function'''
-    pathname, image_format, wallpaper_option, seasonal, lat, lon, elevation = load_config()
+    config_params = load_config()
 
     # Initialise wallpaper time variables
     suntime_last_update = None
@@ -40,15 +41,15 @@ def main():
         now = datetime.datetime.now()
         now_seconds = now.hour * 3600 + now.minute * 60 + now.second
 
-        if seasonal:
+        if config_params.seasonal:
             if suntime_last_update != datetime.date.today():
 
                 # Get sunrise/sunset time and durations
                 suntime_params = suntime(
-                    0, lat, lon, elevation)
+                    0, config_params.lat, config_params.lon, config_params.elevation)
                 # prev_sunset_end = suntime(-1, lat, lon, elevation)[3]
                 next_sunrise_start = suntime(
-                    1, lat, lon, elevation).sunrise_start
+                    1, config_params.lat, config_params.lon, config_params.elevation).sunrise_start
                 print(f"sunrise starts @: {suntime_params.sunrise_start}")
                 print(f"sunrise ends @: {suntime_params.sunrise_end}")
                 print(f"sunset starts @: {suntime_params.sunset_start}")
@@ -60,21 +61,23 @@ def main():
                 suntime_params, next_sunrise_start)
 
             if day_period != last_day_period:
-                file_list = load_file_list(pathname, image_format, day_period)
+                file_list = load_file_list(
+                    config_params.pathname, config_params.image_format, day_period)
 
             selected_image, time_per_image = select_image_seasonal(
-                pathname, day_period, file_list, period_duration, period_start_time)
+                config_params.pathname, day_period, file_list, period_duration, period_start_time)
             if selected_image != last_selected_image:
-                set_wallpaper(selected_image, wallpaper_option)
+                set_wallpaper(selected_image, config_params.wallpaper_option)
 
             time.sleep(max(1, time_per_image))
 
         else:
 
-            file_list = load_file_list(pathname, image_format)
+            file_list = load_file_list(
+                config_params.pathname, config_params.image_format)
             selected_image = select_image_nonseasonal(file_list, now_seconds)
             if selected_image != last_selected_image:
-                set_wallpaper(selected_image, wallpaper_option)
+                set_wallpaper(selected_image, config_params.wallpaper_option)
             time.sleep(5)
 
 
@@ -109,7 +112,10 @@ def load_config():
             lon = config.get("LOCATION", "longitude", fallback="144.946457")
             elevation = config.getint("LOCATION", "elevation", fallback=31)
 
-    return pathname, image_format, wallpaper_option, seasonal, lat, lon, elevation
+    config_return = namedtuple("config_return", [
+                               "pathname", "image_format", "wallpaper_option", "seasonal", "lat",
+                               "lon", "elevation"])
+    return config_return(pathname, image_format, wallpaper_option, seasonal, lat, lon, elevation)
 
 
 def load_file_list(pathname, image_format, day_period=None):
