@@ -1,10 +1,16 @@
-import ephem
-from datetime import datetime, timedelta, date, time
+'''
+Algorithmically calculate times for different sun positions based on location data using the
+[ephem] module
+'''
+
+from datetime import datetime, timedelta, time
 from time import localtime
+from collections import namedtuple
+import ephem
 
 
 def suntime(day_offset: int, lat: str, lon: str, elevation: int = 0):
-
+    '''suntime function'''
     utc_offset = localtime().tm_gmtoff
     sun = ephem.Sun()
     home = ephem.Observer()
@@ -16,8 +22,8 @@ def suntime(day_offset: int, lat: str, lon: str, elevation: int = 0):
     home.date = datetime.combine(datetime.now().date(), time(
         00, 00, 00)) - timedelta(seconds=utc_offset) - timedelta(days=day_offset)
 
-    print("Evaluating sunrise/sunset times for: %s UTC%+d" %
-          ((home.date.datetime() + timedelta(seconds=utc_offset)).date(), utc_offset/3600))
+    print(
+        f"Evaluating sunrise/sunset times for: {(home.date.datetime() + timedelta(seconds=utc_offset)).date()} UTC+{utc_offset/3600}")
 
     # Sunrise starting time
     sunrise_start = home.next_rising(
@@ -45,4 +51,6 @@ def suntime(day_offset: int, lat: str, lon: str, elevation: int = 0):
         sunset_alt = (ephem.Sun(home).alt - ephem.Sun(home).radius)
     sunset_start = home.date.datetime() + timedelta(seconds=utc_offset)
 
-    return sunrise_start, sunrise_end, sunset_start, sunset_end
+    suntime_params = namedtuple("suntime_returns", [
+                                "sunrise_start", "sunrise_end", "sunset_start", "sunset_end"])
+    return suntime_params(sunrise_start, sunrise_end, sunset_start, sunset_end)
